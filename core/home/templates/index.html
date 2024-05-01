@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block start %}
+
+
+    <h1>Hello this is a Django server</h1>
+    <hr>
+    <h2>you are going to learn alot </h2>
+
+    
+    <table>
+        <tr>
+          <th>Name</th>
+          <th>age</th>
+          
+        </tr>
+        {% for  people in peoples%}
+        <tr>
+          <td>{{people.name}}</td>
+          <td>{{people.age}}</td>
+          
+        </tr>
+        
+        
+        {% endfor %}
+      </table>
+
+      <a href="/about">
+        About
+      </a>
+      <a href="/contact">
+        Contact
+      </a>
+    
+
+
+{% endblock %}
