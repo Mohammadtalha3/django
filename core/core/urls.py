@@ -25,11 +25,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 app_name = 'core'
 
 urlpatterns = [
+    path('login/', login_page, name='login'),
+    path('register/', register, name='register'),
     path('', home, name='home'),
     path('about/', about, name='about'),
     path('contact/', contact, name='contact'),
     path('recipes/', Recipes_func, name='Recipe'),
     path('recipes/<id>', delete, name= 'delete recipe'),
+    path('update-recipes/<id>', update, name="Update"),
     path('admin/', admin.site.urls),
 ]
 
