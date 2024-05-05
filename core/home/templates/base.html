@@ -27,13 +27,20 @@
 </head>
 <body>
 
-    {% block start %}
 
-       
+  <nav class="navbar dark p-3  bg-danger shadow-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand">navbar</a>
+      
+        
+      <a  href="/logout/" type="submit" class="btn  " name=" logout">logout</a>
+      
+    </div>
+  </nav>
 
+  {% block start %}
 
-
-{% endblock %}
+  {% endblock %}
     
     
       

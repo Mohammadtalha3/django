@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import *
 
 # Create your views here.
 
-
+@login_required(login_url='/login/')
 def Recipes_func(request):
     if request.method =='POST':
 
@@ -57,7 +59,40 @@ def update(request,id):
 
     return render(request, 'update_recipe.html', context)
 
+def logout_page(request):
+    logout(request)
+    return redirect('/login/')
+
 def login_page(request):
+
+    if request.method== "POST":
+        username= request.POST.get('username')
+        password= request.POST.get('password')
+
+        print('we got this username from login', username)
+        print('we got this password from login:', password)
+
+        if not User.objects.filter(username=username).exists():
+            
+            
+        
+
+            messages.error(request, 'Invalid Username Please make sure you have account registered by this name ')
+            return redirect('/register')
+
+
+        
+        
+        user= authenticate(username= username,  password= password)
+
+        if user is None:
+            messages.error(request, "Invalid credentials ")
+            print("we are redirecting user is none: ")
+            return redirect('/login')
+        else:
+            login(request, user)
+            return redirect('/recipes')
+
     return render(request, 'login.html')
 
 def register(request):
@@ -88,3 +123,5 @@ def register(request):
 
 
     return render(request, 'register.html')
+
+

@@ -33,6 +33,7 @@ urlpatterns = [
     path('recipes/', Recipes_func, name='Recipe'),
     path('recipes/<id>', delete, name= 'delete recipe'),
     path('update-recipes/<id>', update, name="Update"),
+    path('logout/', logout_page, name='logout'),
     path('admin/', admin.site.urls),
 ]
 
