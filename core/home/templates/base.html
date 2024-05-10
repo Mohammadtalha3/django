@@ -27,13 +27,18 @@
 </head>
 <body>
 
+  {{message}}
 
-  <nav class="navbar dark p-3  bg-danger shadow-lg">
+
+  <nav class="navbar dark p-3   shadow-lg">
     <div class="container-fluid">
-      <a class="navbar-brand">navbar</a>
+      <a class="navbar-brand">RECIPE APP</a>
       
-        
-      <a  href="/logout/" type="submit" class="btn  " name=" logout">logout</a>
+        {% if request.user.is_authenticated %}
+      <a  href="/logout/" type="submit" class="btn btn-primary  " name=" logout">logout</a>
+      {% else %}
+      <a href="/login/" type="submit" class=" btn btn-primary" name="login">Login</a>
+      {% endif%}
       
     </div>
   </nav>
