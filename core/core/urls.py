@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from home.views import *
 from recipe.views import *
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -35,6 +36,9 @@ urlpatterns = [
     path('update-recipes/<id>', update, name="Update"),
     path('logout/', logout_page, name='logout'),
     path('admin/', admin.site.urls),
+    path('students/', get_students, name='Students_name'),
+    path('reportcard/', report_card, name=' reportcard')
+    
 ]
 
 if settings.DEBUG:

@@ -2,8 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.contrib import messages
+from  django.db.models import Q
 from .models import *
+from django.contrib.auth import get_user_model
+
+
+User= get_user_model()
 
 # Create your views here.
 
@@ -123,5 +129,67 @@ def register(request):
 
 
     return render(request, 'register.html')
+
+def get_students(request):
+    queryset= student.objects.all()
+
+    if request.GET.get('search'):
+
+        search= request.GET.get('search')
+
+        queryset= queryset.filter(
+            Q(student_name__icontains= search) |
+            Q(department__department__icontains= search)
+            
+            )
+
+    paginator = Paginator(queryset, 10)  
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    
+
+    return render(request,'students.html', {'queryset':page_obj})
+
+def report_card(request):
+   
+   subjects= sunjectmarks.objects.all()
+   students= student.objects.all()
+
+   stduent_data=[]
+
+   for std in students:
+       
+       student_subject= sunjectmarks.objects.filter(student=std)
+       subject_marks= [ sub.subject.subject_name   for sub in student_subject]
+       #sub_marks= ''.join(subject_marks)
+       marks= [sun.marks  for sun in student_subject]
+      
+       
+       total_marks= [sub.student.Total_marks  for sub in student_subject]
+       
+       
+
+       stduent_data.append({
+           'student_name':std.student_name,
+           'Department': std.department.department,
+           'subjects': subject_marks,
+           'maeks': marks,
+           'total_marks': total_marks[0]
+
+       })
+
+       for i in stduent_data:
+           print(i)
+
+       context= {
+           "Student_data" :stduent_data,
+           'subjects': subjects
+       }
+
+       
+       
+   return render(request, 'reportcard.html', context)
+
 
 

@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL= 'custommodels.custommodel'
+
 
 # Application definition
 
@@ -41,7 +43,11 @@ INSTALLED_APPS = [
 
 external_Apps =[
     'home',
-    'recipe'
+    'recipe',
+    'custommodels'
+    
+    
+    
 ]
 
 INSTALLED_APPS += external_Apps

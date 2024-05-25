@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+
+
+
+
+
+{% block start %}
+
+<h1>Report Card</h1>
+
+
+
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Department</th>
+        <th scope="col">subjects</th>
+        <th scope="col">Marks</th>
+        <th scope="col">TotalMarks</th>
+        
+        
+      </tr>
+    </thead>
+    
+    <tbody>
+
+      
+        
+     
+      {%for i in Student_data%}
+        
+        
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{i.student_name}}</td>
+        <td>{{i.Department}}</td>
+        
+        <td>
+          {% for subject in i.subjects %}
+            {{subject}}<br>
+        {%endfor%}
+      </td>
+        <td>
+          {% for mark in i.maeks %}
+            {{mark}}<br>
+        {%endfor%}</td>
+       
+         <td>{{i.total_marks}}</td>
+      </tr>
+      {%endfor%}
+     
+      
+    </tbody>
+    
+  </table>
+
+  
+
+
+{% endblock %}

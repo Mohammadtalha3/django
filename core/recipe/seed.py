@@ -1,8 +1,38 @@
 from faker import Faker
 from .models import *
 import random
+from django.db.models import Sum
 
 fake=Faker()
+
+def create_subjects_marks(n):
+
+    try:
+        student_obj= student.objects.all()
+        for students in student_obj:
+            subjects= subject.objects.all()
+            for sub in subjects:
+                sunjectmarks.objects.create(
+                    
+                    student= students,
+                    subject= sub,
+                    marks= random.randint(0,100),
+
+                )
+    except Exception as e:
+        print(e)
+
+def total_marks():
+    students_with_total= student.objects.annotate(total_marks_sum = Sum('studentmarks__marks'))
+    for std in students_with_total:
+        student_subject_marks= sunjectmarks.objects.filter(student=std)
+        total_marks_sum = std.total_marks_sum if std.total_marks_sum else 0
+        student_subject_marks.update(show_total_marks= total_marks_sum)
+        
+        
+
+
+total_marks()
 
 def seed_db(n=10)-> None:
     try:
